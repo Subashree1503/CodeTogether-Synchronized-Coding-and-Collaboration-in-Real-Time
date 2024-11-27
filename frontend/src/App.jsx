@@ -1,8 +1,8 @@
 import React from 'react'
-import EnterName from './EnterName'
-import RealTimeEditor from './RealTimeEditor'
+import EnterName from '../../src/EnterName'
+import RealTimeEditor from '../../src/RealTimeEditor'
 import './App.css'
-import { useStore } from './store'
+import { useStore } from '../../src/store'
 
 const App = () => {
   const username = useStore(({ username }) => username)
