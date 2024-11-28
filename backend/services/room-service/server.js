@@ -20,4 +20,4 @@ app.post('/join-room', (req, res) => {
   res.send({ message: 'Joined room successfully', roomId });
 });
 
-app.listen(5000, () => console.log('Room Service running on port 5050'));
+app.listen(5050, () => console.log('Room Service running on port 5050'));
