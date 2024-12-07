@@ -1,77 +1,72 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react';
 import {
   Input,
   Button,
   InputGroup,
   InputRightElement,
   useToast,
-} from '@chakra-ui/react'
-import { useMutation } from 'react-query'
-import { useStore } from '../store'
-import axios from 'axios'
+  Flex,
+  Box,
+} from '@chakra-ui/react';
+import { useMutation } from 'react-query';
+import { useStore } from '../store';
+import axios from 'axios';
 
 const EnterName = () => {
-  const inputRef = useRef()
-  const roomIdRef = useRef()
-  const toast = useToast()
+  const inputRef = useRef();
+  const [isGeneratingRoom, setIsGeneratingRoom] = useState(false);
+  const toast = useToast();
   const { setUsername, setRoomId } = useStore(({ setUsername, setRoomId }) => ({
     setUsername,
     setRoomId,
-  }))
+  }));
 
   const { mutateAsync } = useMutation(({ username, roomId, uri }) => {
     return axios.post(`http://localhost:3001/${uri}`, {
       username,
       roomId,
-    })
-  })
+    });
+  });
 
   const createRoom = async () => {
-    const value = inputRef.current?.value
-
-    if (!value) {
+    setIsGeneratingRoom(true); // Set the loading state
+    try {
+      const { data } = await axios.post(`http://localhost:3001/generate-room`);
+      setRoomId(data.roomId);
+      setUsername(inputRef.current.value);
+      setIsGeneratingRoom(false); // Reset the loading state
       toast({
-        title: 'Please enter your username',
+        title: 'Room created successfully!',
+        status: 'success',
+        duration: 9000,
+        isClosable: true,
+      });
+    } catch (error) {
+      console.error('Error generating room:', error);
+      setIsGeneratingRoom(false); // Reset the loading state
+      toast({
+        title: 'Error generating room',
         status: 'error',
         duration: 9000,
         isClosable: true,
-      })
-      return
+      });
     }
-    await mutateAsync(
-      { username: value, uri: 'create-room-with-user' },
-      {
-        onSuccess: ({ data }) => {
-          setRoomId(data.roomId)
-          toast({
-            title: 'We created your username, you will find yourself in a room',
-            description: 'Share the room id with anyone',
-            status: 'success',
-            duration: 9000,
-            isClosable: true,
-          })
-        },
-      }
-    )
-    setUsername(value)
-  }
+  };
 
-  const enterRoom = async () => {
-    const value = inputRef.current?.value
-    const roomIdValue = roomIdRef.current?.value
-
-    if (!value || !roomIdValue) {
+  const joinRoom = async (roomId) => {
+    const username = inputRef.current?.value;
+    if (!username || !roomId) {
       toast({
-        title: 'Please enter text in both inputs',
+        title: 'Please enter your username and room ID',
         status: 'error',
         duration: 9000,
         isClosable: true,
-      })
-      return
+      });
+      return;
     }
-    setRoomId(roomIdValue)
-    setUsername(value)
-  }
+    setRoomId(roomId);
+    setUsername(username);
+  };
 
   return (
     <>
@@ -83,26 +78,22 @@ const EnterName = () => {
           ref={inputRef}
         />
         <InputRightElement width="4.5rem">
-          <Button size="lg" onClick={createRoom}>
-            Go!
-          </Button>
-        </InputRightElement>
-      </InputGroup>
-      <InputGroup size="lg">
-        <Input
-          pr="4.5rem"
-          size="lg"
-          placeholder="Enter a room id"
-          ref={roomIdRef}
-        />
-        <InputRightElement width="4.5rem">
-          <Button size="lg" onClick={enterRoom}>
-            Join!
-          </Button>
+          <Flex direction="row">
+            <Box mr={2}>
+              <Button size="lg" onClick={createRoom} isLoading={isGeneratingRoom}>
+                Generate Room
+              </Button>
+            </Box>
+            <Box>
+              <Button size="lg" onClick={() => joinRoom('your_room_id')}>
+                Join Room
+              </Button>
+            </Box>
+          </Flex>
         </InputRightElement>
       </InputGroup>
     </>
-  )
-}
+  );
+};
 
-export default EnterName
+export default EnterName;

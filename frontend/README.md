@@ -1,4 +1,4 @@
-# Front Microservice
+# Frontend Microservice
 
 frontend/
 ├── public/
