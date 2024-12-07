@@ -1,23 +1,44 @@
 const express = require('express');
 const app = express();
-app.use(express.json());
+const { createClient } = require('redis');
+const cors = require('cors');
+const { v4 } = require('uuid');
+const moment = require('moment');
+const { json } = require('body-parser');
+const { blueBright, redBright } = require('chalk');
 
-const rooms = {};
+// Initialize Redis client
+const client = createClient();
+app.use(json());
+app.use(cors());
 
-app.post('/create-room', (req, res) => {
-  const { roomId, username } = req.body;
-  if (!roomId || !username) return res.status(400).send('Room ID and username are required');
-  if (rooms[roomId]) return res.status(400).send('Room already exists');
-  rooms[roomId] = [username];
-  res.status(201).send({ message: 'Room created successfully', roomId });
+// Handle Redis connection errors
+client.on('error', console.error);
+client
+  .connect()
+  .then(() => console.log(blueBright.bold('Connected to Redis for Room Service!')))
+  .catch(() => {
+    console.error(redBright.bold('Error connecting to Redis in Room Service'));
+  });
+
+// Endpoint to create a new room
+app.post('/create-room-with-user', async (req, res) => {
+  const { username } = req.body;
+  const roomId = v4();
+
+  try {
+    await client.hSet(`${roomId}:info`, {
+      created: moment().toISOString(),
+      updated: moment().toISOString(),
+    });
+    res.status(201).send({ roomId });
+  } catch (err) {
+    console.error(redBright('Error creating room info:', err));
+    res.status(500).send('Failed to create room');
+  }
 });
 
-app.post('/join-room', (req, res) => {
-  const { roomId, username } = req.body;
-  if (!roomId || !username) return res.status(400).send('Room ID and username are required');
-  if (!rooms[roomId]) return res.status(404).send('Room not found');
-  rooms[roomId].push(username);
-  res.send({ message: 'Joined room successfully', roomId });
+// Start the server
+app.listen(5050, () => {
+  console.log(blueBright.bold('Room Service running on port 5050'));
 });
-
-app.listen(5050, () => console.log('Room Service running on port 5050'));
