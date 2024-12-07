@@ -5,7 +5,10 @@ USER_SERVICE_DEPLOYMENT="k8s/user-service-deployment.yaml"
 CODE_SERVICE_DEPLOYMENT="k8s/code-service-deployment.yaml"
 SOCKET_SERVICE_DEPLOYMENT="k8s/socket-service-deployment.yaml"
 FRONTEND_DEPLOYMENT="k8s/frontend-deployment.yaml"
+REDIS_SERVICE="redis/redis-service.yaml"
 REDIS_DEPLOYMENT="redis/redis-deployment.yaml"
+
+
 
 # Apply each deployment YAML
 echo "Applying API service deployment..."

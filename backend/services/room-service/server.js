@@ -1,14 +1,16 @@
 const express = require('express');
 const app = express();
 const { createClient } = require('redis');
+
 const cors = require('cors');
 const { v4 } = require('uuid');
 const moment = require('moment');
 const { json } = require('body-parser');
 const { blueBright, redBright } = require('chalk');
 
-// Initialize Redis client
-const client = createClient();
+const client = createClient({
+  url: 'redis://redis.default.svc.cluster.local:6379'
+});
 app.use(json());
 app.use(cors());
 

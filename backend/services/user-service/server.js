@@ -1,22 +1,29 @@
 const express = require('express');
-const app = express();
-const { createClient } = require('redis');
+const { createClient } = require('redis'); // Import the redis module
 const cors = require('cors');
 const { json } = require('body-parser');
 const { blueBright, redBright } = require('chalk');
 
-// Initialize Redis client
-const client = createClient();
+const app = express();
+
+const client = createClient({
+  url: 'redis://redis.default.svc.cluster.local:6379'
+});
+
+
 app.use(json());
 app.use(cors());
 
 // Handle Redis connection errors
-client.on('error', console.error);
+client.on('error', (err) => {
+  console.error(redBright.bold('Redis Client Error:', err));
+});
+
 client
   .connect()
   .then(() => console.log(blueBright.bold('Connected to Redis for User Service!')))
-  .catch(() => {
-    console.error(redBright.bold('Error connecting to Redis in User Service'));
+  .catch((err) => {
+    console.error(redBright.bold('Error connecting to Redis in User Service:', err));
   });
 
 // Endpoint to set a username

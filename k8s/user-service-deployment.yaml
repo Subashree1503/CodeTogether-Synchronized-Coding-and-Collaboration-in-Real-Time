@@ -19,6 +19,11 @@ spec:
         image: subashreedinesh/user-service:latest
         ports:
         - containerPort: 4000
+        env:
+        - name: REDIS_HOST
+          value: "redis.default.svc.cluster.local"  # Use FQDN for Redis service
+        - name: REDIS_PORT
+          value: "6379"  # Default Redis port
 ---
 apiVersion: v1
 kind: Service

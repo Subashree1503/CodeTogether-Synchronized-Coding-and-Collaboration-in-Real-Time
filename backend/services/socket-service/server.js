@@ -7,8 +7,9 @@ const cors = require('cors');
 const { createClient } = require('redis');
 const { blueBright, greenBright, redBright } = require('chalk');
 
-// Initialize Redis client
-const client = createClient();
+const client = createClient({
+  url: 'redis://redis.default.svc.cluster.local:6379'
+});
 app.use(cors());
 
 // Handle Redis connection errors
