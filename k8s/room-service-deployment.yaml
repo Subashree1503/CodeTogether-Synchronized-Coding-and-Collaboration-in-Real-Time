@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: room-service
-        image: room-service:latest
+        image: subashreedinesh/room-service:latest
         ports:
         - containerPort: 5050
 ---

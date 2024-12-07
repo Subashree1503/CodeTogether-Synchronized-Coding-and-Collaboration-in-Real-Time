@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: user-service
-        image: user-service:latest
+        image: subashreedinesh/user-service:latest
         ports:
         - containerPort: 4000
 ---
