@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: code-service
-        image: subashreedinesh/code-service:latest
+        image: varzzz/code-service:latest
         ports:
         - containerPort: 6000
 ---

@@ -5,7 +5,7 @@ metadata:
   labels:
     app: socket-service
 spec:
-  replicas: 1  # Adjust this based on how many replicas you want
+  replicas: 1  
   selector:
     matchLabels:
       app: socket-service
@@ -16,20 +16,19 @@ spec:
     spec:
       containers:
       - name: socket-service
-        image: subashreedinesh/socket-service:latest  # Replace with your image if different
+        image: varzzz/socket-service:latest 
         ports:
-        - containerPort: 3001  # Adjust based on the actual port your socket service listens on
+        - containerPort: 3001  
         env:
         - name: NODE_ENV
-          value: "production"  # Adjust if you're using a different environment variable
-        # Add any environment variables required for your app here
+          value: "production"  
         resources:
           limits:
-            memory: "512Mi"  # Adjust memory limit as required
-            cpu: "500m"      # Adjust CPU limit as required
+            memory: "512Mi" 
+            cpu: "500m"      
           requests:
-            memory: "256Mi"  # Adjust memory request as required
-            cpu: "250m"      # Adjust CPU request as required
+            memory: "256Mi"  
+            cpu: "250m"     
 
 ---
 apiVersion: v1
@@ -41,6 +40,6 @@ spec:
     app: socket-service
   ports:
     - protocol: TCP
-      port: 80  # This is the service port exposed to other services in the cluster
-      targetPort: 3001  # The port on which the container is actually listening
-  type: ClusterIP  # You can change this to LoadBalancer or NodePort based on your setup
+      port: 80  
+      targetPort: 3001  
+  type: ClusterIP 

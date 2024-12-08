@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: subashreedinesh/frontend:latest
+        image: varzzz/frontend:latest
         ports:
         - containerPort: 80
 ---
