@@ -31,7 +31,7 @@ kubectl apply -f $FRONTEND_DEPLOYMENT
 echo "Applying Redis deployment..."
 kubectl apply -f $REDIS_DEPLOYMENT
 
-echo "Applying Redis servicet..."
+echo "Applying Redis service..."
 kubectl apply -f $REDIS_SERVICE
 
 echo "Applying Ingress deployment..."
