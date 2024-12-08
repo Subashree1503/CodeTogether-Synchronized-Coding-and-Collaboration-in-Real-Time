@@ -31,8 +31,8 @@ socket-service:
 	docker push $(DOCKER_REPO)/socket-service:$(TAG)
 
 frontend:
-	docker build -t subashreedinesh/frontend:latest ./frontend
-	docker push subashreedinesh/frontend:latest
+	docker build -t $(DOCKER_REPO)/frontend:$(TAG) ./frontend
+	docker push $(DOCKER_REPO)/frontend:$(TAG)
 
 # Clean target to remove dangling images
 .PHONY: clean
