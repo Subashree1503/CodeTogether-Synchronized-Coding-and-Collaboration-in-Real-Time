@@ -59,6 +59,6 @@ app.post('/set-username', async (req, res) => {
 });
 
 // Start the server
-app.listen(4000, () => {
-  console.log(blueBright.bold('User Service running on port 4000'));
+app.listen(3300, () => {
+  console.log(blueBright.bold('User Service running on port 3300'));
 });

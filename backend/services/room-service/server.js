@@ -60,6 +60,6 @@ app.post('/create-room-with-user', async (req, res) => {
 });
 
 // Start the server
-app.listen(5050, () => {
-  console.log(blueBright.bold('Room Service running on port 5050'));
+app.listen(3400, () => {
+  console.log(blueBright.bold('Room Service running on port 3400'));
 });

@@ -27,4 +27,4 @@ io.on('connection', (socket) => {
   });
 });
 
-server.listen(6000, () => console.log('Code Collaboration Service running on port 6000'));
+server.listen(3500, () => console.log('Code Collaboration Service running on port 3500'));

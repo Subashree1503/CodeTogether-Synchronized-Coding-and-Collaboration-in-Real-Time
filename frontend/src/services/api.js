@@ -1,4 +1,4 @@
-const apiGatewayUrl = 'http://localhost:3001';
+const apiGatewayUrl = 'http://localhost:3100';
 
 export const createRoom = async (roomId, username) => {
   const response = await fetch(`${apiGatewayUrl}/room/create-room`, {

@@ -3,5 +3,5 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm install
 COPY . .
-EXPOSE 5050
+EXPOSE 3400
 CMD ["node", "server.js"]

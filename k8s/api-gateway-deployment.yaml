@@ -18,7 +18,7 @@ spec:
       - name: api-gateway
         image: subashreedinesh/api-gateway:latest
         ports:
-        - containerPort: 3000
+        - containerPort: 3100
 ---
 apiVersion: v1
 kind: Service
@@ -26,9 +26,9 @@ metadata:
   name: api-gateway
 spec:
   selector:
-    app: api-`gateway
+    app: api-gateway
   ports:
   - protocol: TCP
-    port: 3000
-    targetPort: 3000
+    port: 3100
+    targetPort: 3100
   type: ClusterIP

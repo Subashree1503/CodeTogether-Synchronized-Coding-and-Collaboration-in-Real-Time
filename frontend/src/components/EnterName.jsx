@@ -20,7 +20,7 @@ const EnterName = () => {
   }))
 
   const { mutateAsync } = useMutation(({ username, roomId, uri }) => {
-    return axios.post(`http://localhost:3001/${uri}`, {
+    return axios.post(`http://localhost:3100/${uri}`, {
       username,
       roomId,
     })

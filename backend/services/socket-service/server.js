@@ -104,6 +104,6 @@ io.on('connection', (socket) => {
 });
 
 // Start the server
-server.listen(3001, () => {
-  console.log(greenBright.bold('Listening on *:3001'));
+server.listen(3200, () => {
+  console.log(greenBright.bold('Listening on *:3200'));
 });

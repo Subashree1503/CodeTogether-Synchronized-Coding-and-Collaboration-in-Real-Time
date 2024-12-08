@@ -40,6 +40,6 @@ spec:
     app: socket-service
   ports:
     - protocol: TCP
-      port: 8081
-      targetPort: 3001  
+      port: 3200
+      targetPort: 3200 
   type: ClusterIP 

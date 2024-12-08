@@ -12,10 +12,10 @@ const app = express();
 //   console.error('Error connecting to Redis:', err);
 // });
 
-app.use('/user', createProxyMiddleware({ target: 'http://user-service:4000', changeOrigin: true }));
-app.use('/room', createProxyMiddleware({ target: 'http://room-service:5050', changeOrigin: true }));
-app.use('/code', createProxyMiddleware({ target: 'http://code-service:6000', changeOrigin: true }));
-app.use('/socket', createProxyMiddleware({target: 'http://socket-service:3001', ws: true, changeOrigin: true}));
+app.use('/user', createProxyMiddleware({ target: 'http://user-service:3300', changeOrigin: true }));
+app.use('/room', createProxyMiddleware({ target: 'http://room-service:3400', changeOrigin: true }));
+app.use('/code', createProxyMiddleware({ target: 'http://code-service:3500', changeOrigin: true }));
+app.use('/socket', createProxyMiddleware({target: 'http://socket-service:3200', ws: true, changeOrigin: true}));
 
 
-app.listen(3000, () => console.log('API Gateway running on port 3000'));
+app.listen(3100, () => console.log('API Gateway running on port 3100'));

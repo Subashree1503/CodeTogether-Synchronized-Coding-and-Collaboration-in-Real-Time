@@ -18,7 +18,7 @@ spec:
       - name: user-service
         image: subashreedinesh/user-service:latest
         ports:
-        - containerPort: 4000
+        - containerPort: 3300
         env:
         - name: REDIS_HOST
           value: "redis.default.svc.cluster.local"  # Use FQDN for Redis service
@@ -34,6 +34,6 @@ spec:
     app: user-service
   ports:
   - protocol: TCP
-    port: 4000
-    targetPort: 4000
+    port: 3300
+    targetPort: 3300
   type: ClusterIP
