@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: user-service
-        image: subashreedinesh/user-service:latest
+        image: varzzz/user-service:latest
         ports:
         - containerPort: 3300
         env:

@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: api-gateway
-        image: subashreedinesh/api-gateway:latest
+        image: varzzz/api-gateway:latest
         ports:
         - containerPort: 3100
 ---
