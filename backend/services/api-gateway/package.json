@@ -11,6 +11,7 @@
   "description": "",
   "dependencies": {
     "express": "^4.21.1",
-    "http-proxy-middleware": "^3.0.3"
+    "http-proxy-middleware": "^3.0.3",
+    "redis": "^4.7.0"
   }
 }
