@@ -7,8 +7,7 @@ SOCKET_SERVICE_DEPLOYMENT="k8s/socket-service-deployment.yaml"
 FRONTEND_DEPLOYMENT="k8s/frontend-deployment.yaml"
 REDIS_SERVICE="redis/redis-service.yaml"
 REDIS_DEPLOYMENT="redis/redis-deployment.yaml"
-
-
+INGRESS_DEPLOYMENT="k8s/ingress.yaml"
 
 # Apply each deployment YAML
 echo "Applying API service deployment..."
@@ -31,6 +30,9 @@ kubectl apply -f $FRONTEND_DEPLOYMENT
 
 echo "Applying Redis deployment..."
 kubectl apply -f $REDIS_DEPLOYMENT
+
+echo "Applying Ingress deployment..."
+kubectl apply -f $INGRESS_DEPLOYMENT
 
 echo "All services have been deployed."
 
