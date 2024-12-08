@@ -1,5 +1,5 @@
 # Variables
-DOCKER_REPO = varzzz
+DOCKER_REPO = subashreedinesh
 TAG = latest
 
 # Service names (corresponding to folders in backend/services/)
