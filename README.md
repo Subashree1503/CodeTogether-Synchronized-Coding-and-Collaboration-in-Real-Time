@@ -14,7 +14,8 @@ Service port numbers on kubernetes
 | -------- | ------- | -------- |
 | frontend | 80 | 80 |
 | api-gateway | 3100 | 3100 |	
-| code-service | 6000 |	6000 |	
-| room-service | 5050 | 5050 |
-| socket-service | 8081 | 3200 |
-| user-service | 4000 | 4000 |
+| socket-service | 3200 | 3200 |
+| user-service | 3300 | 3300 |
+| room-service | 3400 | 3400 |
+| code-service | 3500 |	3500 |	
+
