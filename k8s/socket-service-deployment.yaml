@@ -5,7 +5,7 @@ metadata:
   labels:
     app: socket-service
 spec:
-  replicas: 1  
+  replicas: 1
   selector:
     matchLabels:
       app: socket-service
@@ -15,20 +15,26 @@ spec:
         app: socket-service
     spec:
       containers:
-      - name: socket-service
-        image: varzzz/socket-service:latest 
-        ports:
-        - containerPort: 3001  
-        env:
-        - name: NODE_ENV
-          value: "production"  
-        resources:
-          limits:
-            memory: "512Mi" 
-            cpu: "500m"      
-          requests:
-            memory: "256Mi"  
-            cpu: "250m"     
+        - name: socket-service
+          image: subashreedinesh/socket-service:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3200
+              protocol: TCP
+          env:
+            - name: NODE_ENV
+              value: "production"
+            - name: REDIS_HOST
+              value: "redis"
+            - name: REDIS_PORT
+              value: "6379"
+          resources:
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+            requests:
+              memory: "256Mi"
+              cpu: "250m"
 
 ---
 apiVersion: v1
@@ -41,5 +47,5 @@ spec:
   ports:
     - protocol: TCP
       port: 3200
-      targetPort: 3200 
-  type: ClusterIP 
+      targetPort: 3200
+  type: LoadBalancer

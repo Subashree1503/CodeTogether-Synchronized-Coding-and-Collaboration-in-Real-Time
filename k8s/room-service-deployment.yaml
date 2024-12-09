@@ -15,10 +15,17 @@ spec:
         app: room-service
     spec:
       containers:
-      - name: room-service
-        image: varzzz/room-service:latest
-        ports:
-        - containerPort: 3400
+        - name: room-service
+          image: subashreedinesh/room-service:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3400
+              protocol: TCP
+          env:
+            - name: REDIS_HOST
+              value: "redis"
+            - name: REDIS_PORT
+              value: "6379"
 ---
 apiVersion: v1
 kind: Service
@@ -31,4 +38,4 @@ spec:
   - protocol: TCP
     port: 3400
     targetPort: 3400
-  type: ClusterIP
+  type: LoadBalancer

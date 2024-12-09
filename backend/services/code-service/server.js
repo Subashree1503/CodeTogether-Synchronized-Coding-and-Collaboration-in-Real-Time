@@ -1,10 +1,30 @@
 const express = require('express');
 const http = require('http');
 const { Server } = require('socket.io');
+// const redis = require('redis');
 
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server, { cors: { origin: '*' } });
+
+const { createClient } = require('redis');
+
+const client = createClient({
+  url: 'redis://redis.default.svc.cluster.local:6379',
+});
+
+client.connect()
+  .then(() => {
+    console.log('Connected to Redis');
+  })
+  .catch((err) => {
+    console.error('Redis connection error:', err);
+  });
+
+
+  client.on('error', (err) => {
+    console.error('Redis connection error:', err.message || err);
+  });
 
 const rooms = {};
 

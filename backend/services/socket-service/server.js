@@ -4,44 +4,26 @@ const http = require('http');
 const server = http.createServer(app);
 const { Server } = require('socket.io');
 const cors = require('cors');
-const { createClient } = require('redis');
 const { blueBright, greenBright, redBright } = require('chalk');
 
-const redis = require('redis');
-const client = redis.createClient({
-  host: 'redis.default.svc.cluster.local',
-  port: 6379,
+const { createClient } = require('redis');
+
+const client = createClient({
+  url: 'redis://redis.default.svc.cluster.local:6379',
 });
 
-client.on('connect', () => {
-  console.log('Connected to Redis');
-});
-
-client.on('error', (err) => {
-  console.error('Redis connection error:', err);
-  // Retry after a delay
-  setTimeout(() => {
-    client.connect();
-  }, 5000);  // Retry after 5 seconds
-});
+client.connect()
+  .then(() => {
+    console.log('Connected to Redis');
+  })
+  .catch((err) => {
+    console.error('Redis connection error:', err);
+  });
 
 
-
-
-// // Initialize Redis client
-// const client = createClient({
-//   url: 'redis://redis.default.svc.cluster.local:6379'
-// });
-// app.use(cors());
-
-// // Handle Redis connection errors
-// client.on('error', console.error);
-// client
-//   .connect()
-//   .then(() => console.log(blueBright.bold('Connected to Redis for Socket Service!')))
-//   .catch(() => {
-//     console.error(redBright.bold('Error connecting to Redis in Socket Service'));
-//   });
+  client.on('error', (err) => {
+    console.error('Redis connection error:', err.message || err);
+  });
 
 // Initialize Socket.IO
 const io = new Server(server);

@@ -15,15 +15,17 @@ spec:
         app: user-service
     spec:
       containers:
-      - name: user-service
-        image: varzzz/user-service:latest
-        ports:
-        - containerPort: 3300
-        env:
-        - name: REDIS_HOST
-          value: "redis.default.svc.cluster.local"  # Use FQDN for Redis service
-        - name: REDIS_PORT
-          value: "6379"  # Default Redis port
+        - name: user-service
+          image: subashreedinesh/user-service:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3300
+              protocol: TCP
+          env:
+            - name: REDIS_HOST
+              value: "redis"
+            - name: REDIS_PORT
+              value: "6379"
 ---
 apiVersion: v1
 kind: Service
@@ -36,4 +38,4 @@ spec:
   - protocol: TCP
     port: 3300
     targetPort: 3300
-  type: ClusterIP
+  type: LoadBalancer
