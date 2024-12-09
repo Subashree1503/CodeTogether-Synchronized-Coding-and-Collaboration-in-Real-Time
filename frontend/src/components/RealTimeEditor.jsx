@@ -56,7 +56,7 @@ const RealTimeEditor = () => {
 
     socket.on('ROOM:CONNECTION', (users) => {
       setUsers(users)
-      console.log(users)
+      console.log('ROOM:CONNECTION event triggered with users:', users)
     })
 
     editor.on('change', (instance, changes) => {

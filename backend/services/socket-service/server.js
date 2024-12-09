@@ -61,22 +61,49 @@ io.on('connection', (socket) => {
   });
 
   // Handle "CONNECTED_TO_ROOM" event
+  // socket.on('CONNECTED_TO_ROOM', async ({ roomId, username }) => {
+  //   const roomName = `ROOM:${roomId}`;
+
+  //   // Add user to Redis with socketId
+  //   await client.lPush(`${roomId}:users`, JSON.stringify({ username, socketId: socket.id }));
+  //   await client.hSet(socket.id, { roomId, username });
+
+  //   // Get all users in the room
+  //   const users = (await client.lRange(`${roomId}:users`, 0, -1)).map(JSON.parse);
+
+  //   // Join the room and notify all users
+  //   socket.join(roomName);
+  //   io.in(roomName).emit('ROOM:CONNECTION', users);
+
+  //   console.log(blueBright(`${username} connected to room: ${roomId}`));
+  // });
+
   socket.on('CONNECTED_TO_ROOM', async ({ roomId, username }) => {
     const roomName = `ROOM:${roomId}`;
-
-    // Add user to Redis with socketId
-    await client.lPush(`${roomId}:users`, JSON.stringify({ username, socketId: socket.id }));
-    await client.hSet(socket.id, { roomId, username });
-
-    // Get all users in the room
-    const users = (await client.lRange(`${roomId}:users`, 0, -1)).map(JSON.parse);
-
-    // Join the room and notify all users
-    socket.join(roomName);
-    io.in(roomName).emit('ROOM:CONNECTION', users);
-
-    console.log(blueBright(`${username} connected to room: ${roomId}`));
+    console.log(`Adding ${username} to room: ${roomId}`);
+  
+    try {
+      // Add user to Redis
+      await client.lPush(`${roomId}:users`, JSON.stringify({ username, socketId: socket.id }));
+      console.log(`User ${username} added to Redis`);
+  
+      await client.hSet(socket.id, { roomId, username });
+      console.log(`Socket ID ${socket.id} associated with user ${username}`);
+  
+      // Get all users in the room
+      const users = (await client.lRange(`${roomId}:users`, 0, -1)).map(JSON.parse);
+      console.log(`Users in room ${roomId}:`, users);
+  
+      // Join the room and notify all users
+      socket.join(roomName);
+      io.in(roomName).emit('ROOM:CONNECTION', users);
+  
+      console.log(blueBright(`${username} connected to room: ${roomId}`));
+    } catch (err) {
+      console.error('Error handling CONNECTED_TO_ROOM:', err);
+    }
   });
+  
 
   // Handle "disconnect" event
   socket.on('disconnect', async () => {
