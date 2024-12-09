@@ -39,7 +39,7 @@ const EnterName = () => {
       return
     }
     await mutateAsync(
-      { username: value, uri: 'create-room-with-user' },
+      { username: value, uri: 'room/create-room-with-user' },
       {
         onSuccess: ({ data }) => {
           setRoomId(data.roomId)
