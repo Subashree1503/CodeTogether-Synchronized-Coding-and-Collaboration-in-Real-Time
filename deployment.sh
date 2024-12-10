@@ -37,5 +37,8 @@ kubectl apply -f $FRONTEND_DEPLOYMENT
 echo "Applying Ingress deployment..."
 kubectl apply -f $INGRESS_DEPLOYMENT
 
-echo "All services have been deployed."
 
+echo "Port-forwarding..."
+kubectl port-forward svc/frontend 8080:80
+
+echo "All services have been deployed."

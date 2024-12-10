@@ -1,32 +1,37 @@
 # Create monitoring namespace
-
+```bash
 kubectl create namespace monitoring
-
-# Install Prometheus + Grafana
+```
+## Install Prometheus + Grafana
+```bash
+helm repo add grafana https://grafana.github.io/helm-charts
 
 helm install grafana grafana/grafana --namespace monitoring
 
 helm install prometheus prometheus-community/prometheus --namespace monitoring --create-namespace
-
-# Port forward prometheus
-
+```
+## Port forward prometheus
+```bash
 kubectl --namespace monitoring port-forward svc/prometheus-server 9090:80
-
+```
 Access Prometheus at:
 
 http://localhost:9090
 
-# Verify Grafana installation
+## Verify Grafana installation
+```bash
 kubectl --namespace monitoring port-forward svc/grafana 3000:80
-
+```
 Access Grafana at:
 
 http://localhost:3000
 
 Username: admin
-Pwd: Retrieve it using 
-kubectl get secret --namespace monitoring grafana -o jsonpath="{.data.admin-password}" | base64 --decode ; echo
 
+Pwd: Retrieve it using 
+```bash
+kubectl get secret --namespace monitoring grafana -o jsonpath="{.data.admin-password}" | base64 --decode ; echo
+```
 
 Add Prometheus as a Data Source:
 

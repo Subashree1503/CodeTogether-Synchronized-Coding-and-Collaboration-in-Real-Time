@@ -20,6 +20,7 @@ Follow these steps to install and run CodeTogether locally:
 1. Clone the repository:
 ```bash
 $ git clone "https://github.com/cu-csci-4253-datacenter-fall-2024/finalproject-team-99.git"
+$ cd finalproject-team-99
 ```
 2. Build the project:
 ```bash
@@ -46,9 +47,9 @@ $ ./deployment.sh
 
 
 ## Team
-- Subashree Dinesh - [Subashree1503](https://github.com/Subashree1503)
 - Indu Varshini - [InduVarshini](https://github.com/InduVarshini)
 - Renita Blessina - [RenitaBlessina](https://github.com/RenitaBlessina)
+- Subashree Dinesh - [Subashree1503](https://github.com/Subashree1503)
 
 
 
