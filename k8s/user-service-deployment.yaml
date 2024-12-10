@@ -20,10 +20,32 @@ spec:
         ports:
         - containerPort: 4000
         env:
+        - name: NODE_ENV
+          value: "production"  # Ensure production environment is set
         - name: REDIS_HOST
-          value: "redis.default.svc.cluster.local"  # Use FQDN for Redis service
+          value: "redis.default.svc.cluster.local"  # FQDN for Redis service
         - name: REDIS_PORT
           value: "6379"  # Default Redis port
+        readinessProbe:
+          httpGet:
+            path: /health  # Ensure a health endpoint is implemented in your user-service
+            port: 4000
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /health  # Ensure a health endpoint is implemented in your user-service
+            port: 4000
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        resources:
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+
 ---
 apiVersion: v1
 kind: Service
@@ -33,7 +55,7 @@ spec:
   selector:
     app: user-service
   ports:
-  - protocol: TCP
-    port: 4000
-    targetPort: 4000
+    - protocol: TCP
+      port: 4000
+      targetPort: 4000
   type: ClusterIP

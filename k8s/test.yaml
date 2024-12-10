@@ -23,21 +23,19 @@ spec:
         - name: REDIS_HOST
           value: "redis" # Replace with your Redis service name
         - name: SOCKET_SERVICE_URL
-          value: "http://socket-service:80" # Replace with your socket-service port
+          value: "http://socket-service:80" # Corrected port
         readinessProbe:
           httpGet:
-            path: /health # Replace with your service's health check endpoint
+            path: /health
             port: 5050
-          initialDelaySeconds: 10
-          periodSeconds: 5
-          timeoutSeconds: 5
+          initialDelaySeconds: 5
+          periodSeconds: 10
         livenessProbe:
           httpGet:
-            path: /health # Replace with your service's health check endpoint
+            path: /health
             port: 5050
-          initialDelaySeconds: 10
-          periodSeconds: 5
-          timeoutSeconds: 5
+          initialDelaySeconds: 5
+          periodSeconds: 10
 ---
 apiVersion: v1
 kind: Service

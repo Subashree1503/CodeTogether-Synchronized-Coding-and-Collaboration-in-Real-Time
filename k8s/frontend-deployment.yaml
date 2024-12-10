@@ -19,6 +19,21 @@ spec:
         image: subashreedinesh/frontend:latest
         ports:
         - containerPort: 80
+        env:
+        - name: API_GATEWAY_URL
+          value: "http://api-gateway:8080"  # Adjust to match your API Gateway's service URL
+        readinessProbe:
+          httpGet:
+            path: /health  # Ensure your frontend has a /health endpoint
+            port: 80
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /health  # Ensure your frontend has a /health endpoint
+            port: 80
+          initialDelaySeconds: 5
+          periodSeconds: 10
 ---
 apiVersion: v1
 kind: Service
@@ -28,7 +43,7 @@ spec:
   selector:
     app: frontend
   ports:
-  - protocol: TCP
-    port: 80
-    targetPort: 80
+    - protocol: TCP
+      port: 80
+      targetPort: 80
   type: ClusterIP

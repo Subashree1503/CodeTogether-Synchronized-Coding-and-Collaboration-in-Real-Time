@@ -39,3 +39,7 @@ kubectl apply -f $INGRESS_DEPLOYMENT
 
 echo "All services have been deployed."
 
+echo "OK" > /usr/share/nginx/html/health
+
+
+# kubectl port-forward svc/frontend 8080:80
