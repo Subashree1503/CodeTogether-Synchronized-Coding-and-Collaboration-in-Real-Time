@@ -47,7 +47,7 @@ $ ./deployment.sh
 
 
 ## Team
-- Indu Varshini - [InduVarshini](https://github.com/InduVarshini)
+- Indu Varshini Jayapal - [InduVarshini](https://github.com/InduVarshini)
 - Renita Blessina - [RenitaBlessina](https://github.com/RenitaBlessina)
 - Subashree Dinesh - [Subashree1503](https://github.com/Subashree1503)
 
