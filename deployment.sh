@@ -37,6 +37,8 @@ kubectl apply -f $FRONTEND_DEPLOYMENT
 echo "Applying Ingress deployment..."
 kubectl apply -f $INGRESS_DEPLOYMENT
 
+echo "Port-forwarding will start in a few seconds..."
+sleep 20  # Waits for 20 seconds for the services to be ready
 
 echo "Port-forwarding..."
 kubectl port-forward svc/frontend 8080:80
