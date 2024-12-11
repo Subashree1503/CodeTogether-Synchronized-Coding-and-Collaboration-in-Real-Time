@@ -1,0 +1,28 @@
+
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  labels:
+    release: prometheus
+  name: api-gateway-rules
+spec:
+  groups:
+  - name: Micro services uptime
+    interval: 60s
+    rules:
+    - alert: BalancereaderUnavaiable
+      expr: probe_success{app="bank-of-anthos",job="balancereader"} == 0
+      for: 1m
+      annotations:
+        summary: Balance Reader Service is unavailable
+        description: Check Balance Reader pods and it's logs
+      labels:
+        severity: 'critical'
+    - alert: ContactsUnavaiable
+      expr: probe_success{app="bank-of-anthos",job="contacts"} == 0
+      for: 1m
+      annotations:
+        summary: Contacs Service is unavailable
+        description: Check Contacs pods and it's logs
+      labels:
+        severity: 'warning'
