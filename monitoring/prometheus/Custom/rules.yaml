@@ -1,0 +1,73 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  labels:
+    release: prometheus
+  name: uptime-rules
+spec:
+  groups:
+  - name: Microservices uptime
+    interval: 60s
+    rules:
+    - alert: CodeServiceUnavailable
+      expr: probe_success{app="prometheus",job="code-service"} == 0
+      for: 1m
+      annotations:
+        summary: "Code Service is unavailable"
+        description: "Check Code Service pod and it's logs"
+      labels:
+        severity: 'critical'
+
+    - alert: ApiServiceUnavailable
+      expr: probe_success{app="prometheus",job="api-gateway"} == 0
+      for: 1m
+      annotations:
+        summary: "API Gateway is unavailable"
+        description: "Check API Gateway pod and it's logs"
+      labels:
+        severity: 'critical'
+
+    - alert: FrontendServiceUnavailable
+      expr: probe_success{app="prometheus",job="frontend"} == 0
+      for: 1m
+      annotations:
+        summary: "Frontend Service is unavailable"
+        description: "Check Frontend Service pod and it's logs"
+      labels:
+        severity: 'critical'
+
+    - alert: RoomServiceUnavailable
+      expr: probe_success{app="prometheus",job="room-service"} == 0
+      for: 1m
+      annotations:
+        summary: "Room Service is unavailable"
+        description: "Check Room Service pod and it's logs"
+      labels:
+        severity: 'critical'
+
+    - alert: SocketServiceUnavailable
+      expr: probe_success{app="prometheus",job="socket-service"} == 0
+      for: 1m
+      annotations:
+        summary: "Socket Service is unavailable"
+        description: "Check Socket Service pod and it's logs"
+      labels:
+        severity: 'critical'
+
+    - alert: UserServiceUnavailable
+      expr: probe_success{app="prometheus",job="user-service"} == 0
+      for: 1m
+      annotations:
+        summary: "User Service is unavailable"
+        description: "Check User Service pod and it's logs"
+      labels:
+        severity: 'critical'
+
+    - alert: RedisServiceUnavailable
+      expr: probe_success{app="prometheus",job="redis"} == 0
+      for: 1m
+      annotations:
+        summary: "Redis Service is unavailable"
+        description: "Check Redis Service pod and it's logs"
+      labels:
+        severity: 'critical'
