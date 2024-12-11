@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: user-service
-          image: subashreedinesh/user-service:latest
+          image: varzzz/user-service:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 3300
@@ -31,11 +31,32 @@ apiVersion: v1
 kind: Service
 metadata:
   name: user-service
+  labels:
+    job: user-service
+    app: user-service
 spec:
   selector:
     app: user-service
   ports:
-  - protocol: TCP
+  - name: user-service-port
+    protocol: TCP
     port: 3300
     targetPort: 3300
   type: LoadBalancer
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: user-service-monitor
+  labels:
+    release: prometheus
+    app: prometheus
+spec:
+  jobLabel: job
+  selector:
+    matchLabels:
+      app: user-service
+  endpoints:
+    - port: user-service-port 
+      interval: 30s
+      path: /metrics

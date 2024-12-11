@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: socket-service
-          image: subashreedinesh/socket-service:latest
+          image: varzzz/socket-service:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 3200
@@ -41,11 +41,32 @@ apiVersion: v1
 kind: Service
 metadata:
   name: socket-service
+  labels:
+    job: socket-service
+    app: socket-service
 spec:
   selector:
     app: socket-service
   ports:
-    - protocol: TCP
-      port: 3200
-      targetPort: 3200
+  - name: socket-service
+    protocol: TCP
+    port: 3200
+    targetPort: 3200
   type: LoadBalancer
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: socket-service-monitor
+  labels:
+    release: prometheus
+    app: prometheus
+spec:
+  jobLabel: job
+  selector:
+    matchLabels:
+      app: socket-service
+  endpoints:
+    - port: socket-service
+      interval: 30s
+      path: /metrics

@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: code-service
-          image: subashreedinesh/code-service:latest
+          image: varzzz/code-service:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 3500
@@ -31,11 +31,32 @@ apiVersion: v1
 kind: Service
 metadata:
   name: code-service
+  labels:
+    job: code-service
+    app: code-service
 spec:
   selector:
     app: code-service
   ports:
-  - protocol: TCP
+  - name: code-service
+    protocol: TCP
     port: 3500
     targetPort: 3500
   type: LoadBalancer
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: code-service-monitor
+  labels:
+    release: prometheus
+    app: prometheus
+spec:
+  jobLabel: job
+  selector:
+    matchLabels:
+      app: code-service
+  endpoints:
+    - port: code-service 
+      interval: 30s
+      path: /metrics
