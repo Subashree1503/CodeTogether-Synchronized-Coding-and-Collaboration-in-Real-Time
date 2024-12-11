@@ -19,20 +19,4 @@ spec:
     targetPort: 6379
   selector:
     app: redis
----
-apiVersion: monitoring.coreos.com/v1
-kind: ServiceMonitor
-metadata:
-  name: redis-monitor
-  labels:
-    release: prometheus
-    app: prometheus
-spec:
-  jobLabel: job
-  selector:
-    matchLabels:
-      app: redis
-  endpoints:
-    - port: redis-port
-      interval: 30s
-      path: /metrics 
+
