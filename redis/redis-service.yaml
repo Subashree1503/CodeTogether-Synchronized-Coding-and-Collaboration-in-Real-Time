@@ -14,7 +14,7 @@ metadata:
 spec:
   ports:
   - name: redis-port
-    protocol: TCP
+    protocol: "TCP"
     port: 6379
     targetPort: 6379
   selector:
