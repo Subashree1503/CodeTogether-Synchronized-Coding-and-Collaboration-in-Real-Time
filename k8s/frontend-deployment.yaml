@@ -36,20 +36,4 @@ spec:
     port: 80
     targetPort: 80
   type: ClusterIP
----
-apiVersion: monitoring.coreos.com/v1
-kind: ServiceMonitor
-metadata:
-  name: frontend-monitor
-  labels:
-    release: prometheus
-    app: prometheus
-spec:
-  jobLabel: job
-  selector:
-    matchLabels:
-      app: frontend
-  endpoints:
-    - port: frontend 
-      interval: 30s
-      path: /metrics
+
