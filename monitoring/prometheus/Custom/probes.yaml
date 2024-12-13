@@ -1,0 +1,124 @@
+apiVersion: monitoring.coreos.com/v1
+kind: Probe
+metadata:
+  name: code-service-probe
+spec:
+  jobName: code-service
+  prober:
+    url: blackbox-exporter:9115
+    path: /probe
+  module: http_2xx
+  interval: 60s
+  scrapeTimeout: 30s
+  targets:
+    staticConfig:
+      static:
+        - localhost:3500
+
+---
+apiVersion: monitoring.coreos.com/v1
+kind: Probe
+metadata:
+  name: api-gateway-probe
+spec:
+  jobName: api-gateway
+  prober:
+    url: blackbox-exporter:9115
+    path: /probe
+  module: http_2xx
+  interval: 60s
+  scrapeTimeout: 30s
+  targets:
+    staticConfig:
+      static:
+        - localhost:3100
+
+---
+apiVersion: monitoring.coreos.com/v1
+kind: Probe
+metadata:
+  name: frontend-probe
+spec:
+  jobName: frontend
+  prober:
+    url: blackbox-exporter:9115
+    path: /probe
+  module: http_2xx
+  interval: 60s
+  scrapeTimeout: 30s
+  targets:
+    staticConfig:
+      static:
+        - 10.100.72.116:80  # Using ClusterIP since no external IP is available
+
+---
+apiVersion: monitoring.coreos.com/v1
+kind: Probe
+metadata:
+  name: room-service-probe
+spec:
+  jobName: room-service
+  prober:
+    url: blackbox-exporter:9115
+    path: /probe
+  module: http_2xx
+  interval: 60s
+  scrapeTimeout: 30s
+  targets:
+    staticConfig:
+      static:
+        - localhost:3400
+
+---
+apiVersion: monitoring.coreos.com/v1
+kind: Probe
+metadata:
+  name: socket-service-probe
+spec:
+  jobName: socket-service
+  prober:
+    url: blackbox-exporter:9115
+    path: /probe
+  module: http_2xx
+  interval: 60s
+  scrapeTimeout: 30s
+  targets:
+    staticConfig:
+      static:
+        - localhost:3200
+
+---
+apiVersion: monitoring.coreos.com/v1
+kind: Probe
+metadata:
+  name: user-service-probe
+spec:
+  jobName: user-service
+  prober:
+    url: blackbox-exporter:9115
+    path: /probe
+  module: http_2xx
+  interval: 60s
+  scrapeTimeout: 30s
+  targets:
+    staticConfig:
+      static:
+        - localhost:3300
+
+---
+apiVersion: monitoring.coreos.com/v1
+kind: Probe
+metadata:
+  name: redis-probe
+spec:
+  jobName: redis
+  prober:
+    url: blackbox-exporter:9115
+    path: /probe
+  module: tcp_connect
+  interval: 60s
+  scrapeTimeout: 30s
+  targets:
+    staticConfig:
+      static:
+        - 10.109.11.255:6379

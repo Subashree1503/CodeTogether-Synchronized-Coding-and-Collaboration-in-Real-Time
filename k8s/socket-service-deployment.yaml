@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: socket-service
-          image: varzzz/socket-service:latest
+          image: subashreedinesh/socket-service:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 3200

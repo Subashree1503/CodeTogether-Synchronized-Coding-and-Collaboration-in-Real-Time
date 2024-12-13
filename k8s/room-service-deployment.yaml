@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: room-service
-          image: varzzz/room-service:latest
+          image: subashreedinesh/room-service:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 3400
