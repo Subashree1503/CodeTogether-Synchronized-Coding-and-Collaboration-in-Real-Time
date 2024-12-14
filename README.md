@@ -24,12 +24,25 @@ $ cd finalproject-team-99
 ```
 2. Build the project:
 ```bash
-$ make
+$ make all
 ```
 3. Deploy the application:
 ```bash
 $ ./deployment.sh
 ```
+4. Port Forward the necessary services
+
+```bash
+kubectl port-forward svc/frontend 8080:80
+kubectl port-forward svc/prometheus-kube-prometheus-prometheus 9090:9090
+kubectl port-forward svc/prometheus-kube-prometheus-alertmanager 9093:9093
+kubectl port-forward svc/prometheus-grafana 8081:80
+```
+   
+5. Access the application:
+Code Editor: [https://localhost:8080](https://localhost:8080)
+Prometheus: [https://localhost:9090](https://localhost:9090)
+Grafana: [https://localhost:8081](https://localhost:8081)
 
 ## Built with
 - ReactJS - A JavaScript library for building user interfaces
@@ -63,4 +76,6 @@ Service port numbers on kubernetes
 | user-service | 3300 | 3300 |
 | room-service | 3400 | 3400 |
 | code-service | 3500 |	3500 |	
+| prometheus | 9090 |	9090 |
+| grafana | 8081 |	3000 |
 
