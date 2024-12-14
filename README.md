@@ -8,9 +8,8 @@ CodeTogether is a realtime collaborative code editor.
 ## Table of Contents
 1. [Installation and Setup](#installation-and-setup)
 2. [Technologies Used](#built-with)
-3. [Features](#features)
-4. [Screenshots](#screenshots)
-5. [Team](#team)
+3. [Screenshots](#screenshots)
+4. [Team](#team)
 
 
 ## Installation and Setup
@@ -49,8 +48,6 @@ Grafana: [https://localhost:8081](https://localhost:8081)
 - CodeMirror - CodeMirror is a versatile text editor implemented in JavaScript for the browser.
 - NodeJS - Node.js® is a JavaScript runtime built on Chrome's V8 JavaScript engine.
 - Socket.io - Socket.IO enables real-time, bidirectional and event-based communication.
-
-## Features
 
 ## Screenshots
 
