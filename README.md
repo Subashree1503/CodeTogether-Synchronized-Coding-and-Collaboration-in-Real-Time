@@ -6,13 +6,13 @@ CodeTogether is a realtime collaborative code editor.
 
 
 ## Table of Contents
-1. [Installation and Setup](#installation-and-setup)
+1. [Setup](#setup)
 2. [Technologies Used](#built-with)
 3. [Screenshots](#screenshots)
 4. [Team](#team)
 
 
-## Installation and Setup
+## Setup
 
 Follow these steps to install and run CodeTogether locally:
 
@@ -47,8 +47,12 @@ Grafana: [https://localhost:8081](https://localhost:8081)
 - ReactJS - A JavaScript library for building user interfaces
 - CodeMirror - CodeMirror is a versatile text editor implemented in JavaScript for the browser.
 - NodeJS - Node.js® is a JavaScript runtime built on Chrome's V8 JavaScript engine.
+- ExpressJS - Built on top of Node.js® to write APIs
 - Socket.io - Socket.IO enables real-time, bidirectional and event-based communication.
-
+- Redis - An in-memory data store managing session data and Pub/Sub for real-time updates.
+- Docker and Kubernetes -  Tools for containerization and scalable orchestration of the application.
+- Prometheus and Grafana - Deployed through kube-prometheus-stack for monitoring system metrics.
+  
 ## Screenshots
 
 # ![Home Page](img/home-page.png)
